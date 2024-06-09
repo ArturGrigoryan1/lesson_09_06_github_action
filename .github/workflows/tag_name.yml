@@ -37,7 +37,7 @@ jobs:
         run: |
           cd terraform/
           terraform init -upgrade
-          terraform apply -auto-approve -var="instance_name=${{ env.NAME }}" -var="file_data="../user_data.sh""
+       #   terraform apply -auto-approve -var="instance_name=${{ env.NAME }}" -var="file_data="../user_data.sh""
   dev:
    # if: github.event_name == 'workflow_dispatch'
     needs: prod
