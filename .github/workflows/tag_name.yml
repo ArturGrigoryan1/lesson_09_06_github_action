@@ -39,13 +39,41 @@ jobs:
           terraform init -upgrade
           terraform apply -auto-approve -var="instance_name=${{ env.NAME }}" -var="file_data="../user_data.sh""
   dev:
-    if: github.event_name == 'workflow_dispatch'
+   # if: github.event_name == 'workflow_dispatch'
+    needs: prod
+    if: ${{ needs.prod.result == 'skipped' }}
     name: with workflow
     runs-on: ubuntu-latest
     steps:
-      - name: esim 
-        run : echo "ok"
-    
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: Checkout ioc repo
+        uses: actions/checkout@master
+        with:
+          repository: ArturGrigoryan1/lesson_09_06_terraform_action
+          path: terraform
+      
+      - name: Install terraform
+        uses: hashicorp/setup-terraform@v3
+          
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+      
+      - name: Terraform apply
+        env:
+          NAME: "PROD_${{ github.sha }}"
+          
+        run: |
+          cd terraform/
+          terraform init -upgrade
+          terraform plan -var="instance_name=${{ env.NAME }}" -var="file_data="../user_data.sh""
+        #  terraform apply -auto-approve -var="instance_name=${{ env.NAME }}" -var="file_data="../user_data.sh""
+     
   
 
 
