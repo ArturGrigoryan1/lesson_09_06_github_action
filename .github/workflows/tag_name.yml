@@ -10,15 +10,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        
-      - run: 'ls -la'
       
       - name: Check out ioc repo
         uses: actions/checkout@master
         with:
           repository: ArturGrigoryan1/lesson_09_06_terraform_action
+          
+      - run: 'ls -la'
+      
+      - name: Checkout
+        uses: actions/checkout@v3
+        
       - run: 'ls -la'
       
       - name: Install terraform
