@@ -6,23 +6,20 @@ on:
   workflow_dispatch:
     
 jobs:
-  build:
+  prod:
+    if: startsWith(github.event.ref, 'refs/tags/')
+    name: with tag
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
         
-      - run: 'ls -la'
-      
       - name: Checkout ioc repo
         uses: actions/checkout@master
         with:
           repository: ArturGrigoryan1/lesson_09_06_terraform_action
           path: terraform
-          
-      - run: 'ls -la'
-      
       
       - name: Install terraform
         uses: hashicorp/setup-terraform@v3
@@ -38,12 +35,43 @@ jobs:
         env:
           NAME: "PROD_${{  github.ref_name }}"
         run: |
-          ls -la
           cd terraform/
-          ls -la
           terraform init -upgrade
           terraform apply -auto-approve -var="instance_name=${{ env.NAME }}" -var="file_data="../user_data.sh""
-          
+  dev:
+    if: github.event_name = 'workflow_dispatch'
+    name: with workflow
+    runs-on: ubuntu-latest
+    steps:
+      - name: esim 
+        run : echo "ok"
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
           
 
       
