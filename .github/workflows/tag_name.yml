@@ -10,10 +10,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out my other repo
+      - name: Check out ioc repo
         uses: actions/checkout@master
         with:
           repository: ArturGrigoryan1/lesson_09_06_terraform_action
       - name: stugel
         run : 'ls -la'
 
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
