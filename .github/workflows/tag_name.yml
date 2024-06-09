@@ -42,7 +42,7 @@ jobs:
           cd terraform/
           ls -la
           terraform init -upgrade
-          terraform apply -var="instance_name=${{ env.NAME }}" -var="file_data="../user_data.sh""
+          terraform apply -auto-approve -var="instance_name=${{ env.NAME }}" -var="file_data="../user_data.sh""
           
           
 
