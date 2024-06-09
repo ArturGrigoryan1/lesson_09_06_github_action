@@ -38,9 +38,11 @@ jobs:
         env:
           NAME: "PROD_+${{  github.ref_name }}"
         run: |
+          ls -la
           cd tarraform
+          ls -la
           terraform init -upgrade
-          terraform apply -var="instance_name=${{ env.NAME }}" -var="file_data=../user_data.sh"
+        #  terraform apply -var="instance_name=${{ env.NAME }}" -var="file_data=../user_data.sh"
           
           
 
