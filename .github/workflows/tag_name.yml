@@ -1,0 +1,19 @@
+name: 'tag_name'
+on: 
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+  workflow_dispatch:
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out my other repo
+        uses: actions/checkout@master
+        with:
+          repository: ArturGrigoryan1/lesson_09_06_terraform_action
+      - name: stugel
+        run : 'ls -la'
+
