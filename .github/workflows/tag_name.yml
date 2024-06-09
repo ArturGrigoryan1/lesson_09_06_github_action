@@ -15,8 +15,8 @@ jobs:
         
       - run: 'ls -la'
       
-      - name: Check out ioc repo
-        uses: actions/checkout@3
+      - name: Checkout ioc repo
+        uses: actions/checkout@master
         with:
           repository: ArturGrigoryan1/lesson_09_06_terraform_action
           path: terraform
