@@ -39,7 +39,7 @@ jobs:
           terraform init -upgrade
           terraform apply -auto-approve -var="instance_name=${{ env.NAME }}" -var="file_data="../user_data.sh""
   dev:
-    if: github.event_name = 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch'
     name: with workflow
     runs-on: ubuntu-latest
     steps:
