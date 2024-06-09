@@ -8,7 +8,6 @@ on:
 jobs:
   prod:
     if: startsWith(github.event.ref, 'refs/tags/')
-    name: with tag
     runs-on: ubuntu-latest
 
     steps:
@@ -40,9 +39,10 @@ jobs:
        #   terraform apply -auto-approve -var="instance_name=${{ env.NAME }}" -var="file_data="../user_data.sh""
   dev:
    # if: github.event_name == 'workflow_dispatch'
-    if: ${{ needs.prod.result == 'skipped' }}
-    name: with workflow
     runs-on: ubuntu-latest
+    needs: prod
+    if: ${{ needs.prod.result == 'skipped' }}
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v3
