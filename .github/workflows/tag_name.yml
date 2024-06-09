@@ -36,7 +36,7 @@ jobs:
       
       - name: Terraform apply
         env:
-          NAME: "PROD_+${{  github.ref_name }}"
+          NAME: "PROD_${{  github.ref_name }}"
         run: |
           ls -la
           cd terraform/
